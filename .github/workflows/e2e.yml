@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Local Repo
         uses: actions/checkout@v2
         
-      - name: Get Curent Branch
+      - name: Get Curent Brancha
         id: branch_name
         uses: tj-actions/branch-names@v5.4
 
@@ -25,7 +25,9 @@ jobs:
         run: |
             TEST_BRANCHES="$(curl -H "Authorization: token ${{ secrets.GIT_TOKEN }}" -X GET https://api.github.com/repos/pelacase/lomi-mobile-app-ui-tests/branches)"
 
-            CURRENT_BRANCH=${{ steps.branch-name.outputs.current_branch }}
+
+            echo ${{ steps.branch_name.outputs.current_branch }}
+            CURRENT_BRANCH=${{ steps.branch_name.outputs.current_branch }}
 
             echo $TEST_BRANCHES
             echo $CURRENT_BRANCH
