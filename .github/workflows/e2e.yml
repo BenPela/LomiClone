@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Local Repo
         uses: actions/checkout@v2
         
-      - name: Get Curent Brancha
+      - name: Get Curent Branch
         id: branch_name
         uses: tj-actions/branch-names@v5.4
 
