@@ -23,14 +23,14 @@ jobs:
 
             echo $GITHUB_HEAD_REF
 
-            CURRENT_BRANCH="$GITHUB_HEAD_REF"
+            CURRENT_BRANCH="$(git branch --show-current)
 
             echo $TEST_BRANCHES
             echo $CURRENT_BRANCH
             
             if [[ "$TEST_BRANCHES" =~ $CURRENT_BRANCH ]]
             then
-                BRANCH="${GITHUB_REF#refs/heads/}"
+                BRANCH=$CURRENT_BRANCH
             else
                 BRANCH="master"
             fi
