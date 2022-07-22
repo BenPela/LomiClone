@@ -1,0 +1,78 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+  workflow_dispatch:
+
+jobs:
+  Run-E2E:
+    runs-on: [self-hosted, macOS, X64]
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout Local Repo
+        uses: actions/checkout@v2
+
+      - name: Checkout Tests repo
+        uses: actions/checkout@v2
+        with:
+          repository: pelacase/lomi-mobile-app-ui-tests
+          token: ${{ secrets.GIT_TOKEN }}
+          path: test_suite
+
+      - name: Install XCPretty
+        run: gem install xcpretty --install-dir ./gems xcpretty
+
+
+      - name: Print XCode Version
+        run: xcodebuild -version
+      
+      - name: Build App
+        run: xcodebuild -scheme Lomi-staging -sdk iphonesimulator -derivedDataPath ./ -workspace Lomi/Lomi.xcworkspace | gems/bin/xcpretty -c && exit ${PIPESTATUS[0]}
+
+      - name: Create Env File
+        working-directory: test_suite
+        run: |
+          touch .env
+          echo APP_PATH=$(readlink -f ../Build/Products/Staging-iphonesimulator/Lomi-Staging.app) >> .env
+          echo PLATFORM_NAME="iOS" >> .env
+          echo PLATFORM_VERSION="15.4" >> .env
+          echo AUTOMATION_NAME="xcuitest" >> .env
+          echo DEVICE_NAME="iPhone 13" >> .env
+          echo TEST_LOGIN = ${{ secrets.TEST_LOGIN }} >> .env
+          echo TEST_PASS = "${{ secrets.TEST_PASS}}" >> .env
+          echo AUTO_ALLOW_FIREWALL=True >> .env
+          echo API_URL = "https://api-staging.lomi-app.net" >> .env
+          echo API_KEY = "${{  secrets.API_KEY }}" >> .env
+
+      - name: Print Enviroment
+        working-directory: test_suite
+        run: cat .env
+
+      - name: Create Python Enviroment 
+        working-directory: test_suite
+        run: |
+          python3 -m venv pythonenv 
+          pythonenv/bin/python3 -m pip install --upgrade pip 
+          pythonenv/bin/python3 -m pip install -U -r requirements.txt
+
+      - name: Start Appium Server
+        working-directory: test_suite
+        run: |
+          appium --log-level debug --log-no-colors --base-path /wd/hub >> ~/action-runner-ghios/appium.log &
+        shell: zsh -l {0}
+
+      - name: Wait For Appium Server
+        working-directory: test_suite
+        run: until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:4723/wd/hub/sessions); do sleep 5; done
+
+      - name: Run Tests
+        working-directory: test_suite
+        run: pythonenv/bin/python3 -m unittest discover
+
+
+
+

@@ -1,0 +1,16 @@
+/* 
+  SignUpScreen.strings
+  Lomi
+
+  Created by Takayuki Yamaguchi on 2022-06-03.
+  
+*/
+
+"logInPrompt" = "Already have an account?";
+"logInButtonLabel" = "Log in";
+
+"logoSubtitle" = "Together we can reduce up to 50% of food waste that normally ends up in a landfill.";
+
+"signUpButtonLabel" = "Continue";
+
+"guestLogInButtonLabel" = "Continue as guest";

@@ -1,0 +1,15 @@
+/* 
+  InputType.strings
+  Lomi
+
+  Created by Takayuki Yamaguchi on 2022-06-03.
+  
+*/
+
+"firstName" = "First name";
+"lastName" = "Last name";
+"email" = "Email";
+"password" = "Password";
+"confirmationPassword" = "Re-enter password";
+"deviceNickname" = "Nickname";
+"deviceSerialNumber" = "Serial number";

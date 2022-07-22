@@ -1,0 +1,14 @@
+"Ok" = "Ok";
+"DefaultError.AlertTitle" = "Error";
+"ApiError.EmptyBody" = "Sorry, there was an unexpected error (no response body).";
+"ApiError.Unverified" = "Your email address is unverified.  Please check your inbox for a verification email before continuing to use this app.";
+"ApiError.Deserialization" = "Sorry, there was an unexpected error (api deserialization)";
+"AuthError.NoAuth" = "You must be signed in to perfom this operation.";
+"AuthError.Persist" = "Sorry, there was an unexpected error (auth persist)";
+"UserEmailUpdate.Warning" = "If you save a new email address you’ll be logged out and sent a new confirmation email. You’ll need to confirm the new email address to access this account.";
+"UserEmailUpdate.AlertTitle" = "Email Updated";
+"UserEmailUpdate.AlertText" = "In a few minutes you'll recieve a verification email. After you verify your email, you'll need to login with your new email.";
+"Logout.AlertTitle" = "Log out";
+"Logout.AlertText" = "Are you sure you want to log out of your Lomi account?";
+"Logout.AlertYes" = "Log out";
+"Logout.ErrorText" = "Sorry, there was an error logging out.";

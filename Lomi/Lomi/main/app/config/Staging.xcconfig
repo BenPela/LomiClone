@@ -1,0 +1,14 @@
+//
+//  Staging.xcconfig
+//  Lomi
+//
+//  Created by Peter Harding on 2022-05-16.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+PRODUCT_BUNDLE_IDENTIFIER = earth.lomi.app.1.staging
+APP_NAME = Lomi-Staging
+APP_ICON = AppIcon-Staging
+BASE_API_URL = api-staging.lomi-app.net

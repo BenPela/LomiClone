@@ -1,0 +1,11 @@
+/* 
+  WelcomeScreen.strings
+  Lomi
+
+  Created by Takayuki Yamaguchi on 2022-05-30.
+  
+*/
+"logoCatchphrase" = "Make garbage optional.";
+"signInButtonLabel" = "Get started";
+"logInButtonLabel" = "Log in";
+"logInPrompt" = "Already have an account?";

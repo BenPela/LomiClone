@@ -1,0 +1,11 @@
+/* 
+  WelcomeScreen.strings
+  Lomi
+
+  Created by Takayuki Yamaguchi on 2022-05-30.
+  
+*/
+"logoCatchphrase" = "Rendez les ordures facultatives.";
+"signInButtonLabel" = "Commencez";
+"logInButtonLabel" = "Connectez-vous";
+"logInPrompt" = "Vous avez déjà un compte ?";

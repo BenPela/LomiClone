@@ -1,0 +1,25 @@
+/* 
+  UserPrompt.strings
+  Lomi
+
+  Created by Takayuki Yamaguchi on 2022-05-31.
+  
+*/
+
+"firstName.empty" = "Veuillez entrer votre prénom";
+"firstName.tooShort %d" = "Le prénom doit comporter au moins %d caractères";
+"firstName.tooLong %d" = "Le prénom doit être compris entre %d caractères";
+
+"lastName.empty" = "Veuillez entrer votre nom de famille";
+"lastName.tooShort %d" = "Le nom de famille doit comporter au moins %d caractères";
+"lastName.tooLong %d" = "Le nom de famille doit être compris entre %d caractères";
+
+"email.invalid" = "Veuillez saisir une adresse électronique valide";
+
+"password.empty" = "Veuillez entrer votre mot de passe";
+"password.tooShort %d" = "Le mot de passe doit comporter au moins %d caractères";
+"password.tooLong %d" = "Le mot de passe doit comporter moins de %d caractères";
+"password.noUppercase" = "Le mot de passe doit contenir au moins une lettre majuscule.";
+"password.noLowercase" = "Le mot de passe doit contenir au moins une lettre minuscule";
+"password.noNumber" =  "Le mot de passe doit contenir au moins un chiffre";
+"password.noMatch" =  "Les mots de passe ne correspondent pas";

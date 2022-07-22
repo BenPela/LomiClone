@@ -1,0 +1,24 @@
+name: Unit Tests
+
+on:
+  push:
+    branches: [ develop, master ]
+  pull_request:
+    branches: [ develop, master ]
+  workflow_dispatch:
+
+jobs:
+  Run-Unit-Tests:
+    runs-on: [self-hosted, macOS, X64]
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install xcpretty
+        run: gem install xcpretty --install-dir ./gems xcpretty
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build and Test
+        run: xcodebuild clean test -workspace Lomi/Lomi.xcworkspace -scheme Lomi -destination 'platform=iOS Simulator,name=iPhone 13' | gems/bin/xcpretty -c && exit ${PIPESTATUS[0]} 

@@ -1,0 +1,16 @@
+/* 
+  SignUpScreen.strings
+  Lomi
+
+  Created by Takayuki Yamaguchi on 2022-06-03.
+  
+*/
+
+"logInPrompt" = "Vous avez déjà un compte?";
+"logInButtonLabel" = "Log In";
+
+"logoSubtitle" = "Ensemble, nous pouvons réduire jusqu'à 50 % des déchets alimentaires qui finissent normalement dans une décharge.";
+
+"submitButtonLabel" = "Continuer";
+
+"guestLogInButtonLabel" = "Continuer en tant qu'invité";

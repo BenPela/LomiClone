@@ -1,0 +1,23 @@
+/* 
+  LoginScreen.strings
+  Lomi
+
+  Created by Takayuki Yamaguchi on 2022-06-06.
+  
+*/
+
+"signUpPrompt" = "Vous n'avez pas de compte ?";
+"signUpButtonLabel" = "S'inscrire";
+"loginPrompt" = "Bienvenue!";
+"loginPromptUnauthorized" = "Votre session n'est plus valide.  Veuillez vous connecter pour continuer à utiliser l'application.";
+"resetPasswordButtonLabel" = "Mot de passe oublié ?";
+"loginButtonLabel" = "Continuer";
+
+// TODO: These strings are shown in alert. We may need to replace to different table.
+"loginUnauthorizedTitle" = "Erreur";
+"loginUnauthorizedMessage" = "Veuillez vous reconnecter pour continuer à utiliser l'application.";
+"loginUnauthorizedConfirm" = "OK";
+
+"resendEmailTitle" = "Veuillez vérifier votre e-mail";
+"resendEmailMessage %@" = "Votre adresse e-mail n'est pas vérifiée. Voulez-vous renvoyer l'e-mail de vérification à %@ ?";
+"resendEmailConfirm" = "Renvoyer";
