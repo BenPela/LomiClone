@@ -19,7 +19,7 @@ jobs:
       - name: Select Branch
         shell: bash
         run: |
-            TEST_BRANCHES="$(curl -H "Authorization: token ${{ secrets.PAT }}" -X GET https://api.github.com/repos/pelacase/lomi-mobile-app-ui-tests/branches)"
+            TEST_BRANCHES="$(curl -H "Authorization: token ${{ secrets.GIT_TOKEN }}" -X GET https://api.github.com/repos/pelacase/lomi-mobile-app-ui-tests/branches)"
             CURRENT_BRANCH="${GITHUB_REF#refs/heads/}"
             echo $TEST_BRANCHES
             echo $CURRENT_BRANCH
@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: pelacase/lomi-mobile-app-ui-tests
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GIT_TOKEN }}
           path: test_suite
           ref: ${{ steps.extract_branch.outputs.branch }}
 
