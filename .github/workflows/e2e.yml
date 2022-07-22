@@ -1,10 +1,10 @@
-name: E2E Tests
+name: E2E
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ main, develop, main]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ main, develop]
   workflow_dispatch:
 
 jobs:
@@ -15,6 +15,32 @@ jobs:
     steps:
       - name: Checkout Local Repo
         uses: actions/checkout@v2
+        
+      - name: Get Curent Branch
+        id: branch_name
+        uses: tj-actions/branch-names@v5.4
+
+      - name: Select Branch
+        shell: bash
+        run: |
+            TEST_BRANCHES="$(curl -H "Authorization: token ${{ secrets.GIT_TOKEN }}" -X GET https://api.github.com/repos/pelacase/lomi-mobile-app-ui-tests/branches)"
+
+
+            echo ${{ steps.branch_name.outputs.current_branch }}
+            CURRENT_BRANCH=${{ steps.branch_name.outputs.current_branch }}
+
+            echo $TEST_BRANCHES
+            echo $CURRENT_BRANCH
+            
+            if [[ "$TEST_BRANCHES" =~ $CURRENT_BRANCH ]]
+            then
+                BRANCH=$CURRENT_BRANCH
+            else
+                BRANCH="master"
+            fi
+            echo "Running Tests with Branch: $BRANCH"
+            echo "##[set-output name=branch;]$(echo $BRANCH)"
+        id: extract_branch
 
       - name: Checkout Tests repo
         uses: actions/checkout@v2
@@ -22,6 +48,7 @@ jobs:
           repository: pelacase/lomi-mobile-app-ui-tests
           token: ${{ secrets.GIT_TOKEN }}
           path: test_suite
+          ref: ${{ steps.extract_branch.outputs.branch }}
 
       - name: Install XCPretty
         run: gem install xcpretty --install-dir ./gems xcpretty
@@ -29,6 +56,11 @@ jobs:
 
       - name: Print XCode Version
         run: xcodebuild -version
+        
+      - name: Erase Simulator
+        run: |
+          xcrun simctl shutdown "iPhone 13" || true
+          xcrun simctl erase "iPhone 13" && echo "Simulator Erased"
       
       - name: Build App
         run: xcodebuild -scheme Lomi-staging -sdk iphonesimulator -derivedDataPath ./ -workspace Lomi/Lomi.xcworkspace | gems/bin/xcpretty -c && exit ${PIPESTATUS[0]}
@@ -52,11 +84,11 @@ jobs:
         working-directory: test_suite
         run: cat .env
 
-      - name: Create Python Enviroment 
+      - name: Create Python Enviroment
         working-directory: test_suite
         run: |
-          python3 -m venv pythonenv 
-          pythonenv/bin/python3 -m pip install --upgrade pip 
+          python3 -m venv pythonenv
+          pythonenv/bin/python3 -m pip install --upgrade pip
           pythonenv/bin/python3 -m pip install -U -r requirements.txt
 
       - name: Start Appium Server
@@ -76,3 +108,4 @@ jobs:
 
 
 
+    
