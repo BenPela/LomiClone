@@ -31,7 +31,7 @@ jobs:
                 BRANCH="master"
             fi
             echo "Running Tests with Branch: $BRANCH"
-            echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+            echo "##[set-output name=branch;]$(echo $BRANCH)"
         id: extract_branch
 
       - name: Checkout Tests repo
