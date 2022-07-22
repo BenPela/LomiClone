@@ -20,7 +20,9 @@ jobs:
         shell: bash
         run: |
             TEST_BRANCHES="$(curl -H "Authorization: token ${{ secrets.GIT_TOKEN }}" -X GET https://api.github.com/repos/pelacase/lomi-mobile-app-ui-tests/branches)"
+
             echo $GITHUB_HEAD_REF
+
             CURRENT_BRANCH="${GITHUB_REF#refs/heads/}"
             echo $TEST_BRANCHES
             echo $CURRENT_BRANCH
