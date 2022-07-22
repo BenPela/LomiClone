@@ -17,11 +17,12 @@ target 'Lomi' do
   end
 
   pod 'Alamofire'
+
+  pod 'Amplify'
+  pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
   
   # add the Firebase pod for Google Analytics
   pod 'FirebaseAnalytics', '~> 9.0'
-  # add the Firebase pod for FCM
-  pod 'FirebaseMessaging', '~> 9.0'
   # add pods for any other desired Firebase products
   # https://firebase.google.com/docs/ios/setup#available-pods
   

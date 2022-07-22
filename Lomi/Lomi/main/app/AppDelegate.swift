@@ -17,10 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // FirebaseApp.configure() should be called **only once before any Firebase setup**.
         FirebaseApp.configure()
         
-        // This is example of how to detect "launched by push notification" + "get its details"
-        // if let userInfo =  launchOptions?[.remoteNotification] as? [AnyHashable: Any] { print(userInfo) }
-        setupPushNotification(application: application)
-        
         let serviceLocator = ServiceLocator()
 
         // FIXME: refactor to separate "AppEnvironment" from "StateCore"
@@ -30,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             serviceLocator: serviceLocator
         )
 
+        let authProvider = CognitoAuthProvider()
         let networkService = NetworkService(appEnv: appEnv)
         let userService = UserService(networkService: networkService)
         let registerLomiService = RegisterLomiService(networkService: networkService)
@@ -94,4 +91,5 @@ extension AppDelegate {
             UITabBar.appearance().backgroundColor =  .white
         }
     }
+
 }
