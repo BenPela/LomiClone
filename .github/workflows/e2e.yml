@@ -25,8 +25,8 @@ jobs:
         run: |
             TEST_BRANCHES="$(curl -H "Authorization: token ${{ secrets.GIT_TOKEN }}" -X GET https://api.github.com/repos/pelacase/lomi-mobile-app-ui-tests/branches)"
 
-            echo "${ steps.branch-name.outputs.current_branch }
-            CURRENT_BRANCH=${ steps.branch-name.outputs.current_branch }
+            echo ${{ steps.branch_name.outputs.current_branch }}
+            CURRENT_BRANCH=${{ steps.branch_name.outputs.current_branch }}
 
             echo $TEST_BRANCHES
             echo $CURRENT_BRANCH
