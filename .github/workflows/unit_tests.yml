@@ -23,6 +23,8 @@ jobs:
       - name: Install Pods
         run: |
           cd Lomi
+          export GEM_HOME=../gems
+          export GEM_PATH=../gems
           ../gems/bin/pod repo update
           ../gems/bin/pod install
 
