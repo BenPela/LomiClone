@@ -23,6 +23,7 @@ jobs:
       - name: Install Pods
         run: |
           cd Lomi
+          ../gems/bin/pod repo update
           ../gems/bin/pod install
 
       - name: Show Xcode version
