@@ -29,7 +29,9 @@ jobs:
             ${{ runner.os }}-pods-
 
       - name: Install Pods
-        run: gems/bin/pod install
+        run: |
+          cd Lomi
+          ../gems/bin/pod install
 
       - name: Show Xcode version
         run: xcodebuild -version
