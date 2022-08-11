@@ -20,14 +20,6 @@ jobs:
       - name: Install cocoapods
         run: gem install cocoapods --install-dir ./gems cocoapods
 
-      - name: Cache Pods
-        uses: actions/cache@v3
-        with:
-          path: Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
-
       - name: Install Pods
         run: |
           cd Lomi
