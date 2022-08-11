@@ -22,9 +22,8 @@ jobs:
 
       - name: Install Pods
         run: |
-          export GEM_HOME=../gems
-          export GEM_PATH=../gems
-          gems/bin/pod repo update
+          export GEM_HOME=gems
+          export GEM_PATH=gems
           gems/bin/pod install --project-directory=Lomi
 
       - name: Show Xcode version
