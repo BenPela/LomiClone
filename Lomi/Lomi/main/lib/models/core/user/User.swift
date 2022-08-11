@@ -12,8 +12,9 @@ struct User: Codable, Identifiable {
     var firstName: String
     var lastName: String
     var email: String
-    var createdAt: String // ISO date string
-    var createdByApiClient: LomiApiClientDetails
+    // FIXME: match this model to our desired user model after checking Cognito user response
+    var createdAt: String? // ISO date string // TODO: Date type?
+    var createdByApiClient: LomiApiClientDetails?
     var metadata: [Metadata]
 
     private enum CodingKeys: String, CodingKey {

@@ -71,6 +71,7 @@ struct SystemLogger: Logging {
 extension SystemLogger {
     enum TAG: String {
         case systemDefault = ""
+        case coreData = "CORE_DATA"
         case auth = "AUTH"
     }
 }

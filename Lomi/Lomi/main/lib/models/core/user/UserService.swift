@@ -10,23 +10,50 @@ import Foundation
 class UserService {
     private let baseURL = URL(string: AppConfig.domain + "/users")!
     private let networkService: Networking
+    private let userRepsitory: UserRepository // FIXME: depend upon abstraction
 
-    init(networkService: Networking) {
+    init(networkService: Networking, userRepository: UserRepository) {
         self.networkService = networkService
+        self.userRepsitory = userRepository
     }
 
-    func createUser(_ user: CreateUserRequest) async -> CreateUserResponse? {
+    func getUser() async -> User? {
+        guard let user = userRepsitory.getUser() else {
+            let reqParams = RequestParams(url: baseURL)
+            let response: NetworkResponse<User> = await networkService.request(reqParams)
+            if (response.result == nil) {
+                // TODO: could not get user (http)
+            }
+            let _ = userRepsitory.saveUser(user: response.result!)
+            return response.result
+        }
+        return user
+    }
+
+    func createUser(_ user: CreateUserRequest) async -> User? {
         guard let requestData = JSONCodableHelper.encode(user) else {
             return nil // could not encode, error will be logged by JSONCodableHelper
         }
         let reqParams = RequestParams(url: baseURL, httpMethod: .POST, body: requestData)
-        // FIXME: server should return whole user object
+        // TODO: switch from our networkServie to Amplify / AuthProvider.signUp
         let response: NetworkResponse<CreateUserResponse> = await networkService.request(reqParams)
-        if (response.result == nil) {
+        
+        guard let gResult = response.result else {
             // FIXME: handle "account already exists" and other errors gracefully
+            return nil
         }
-        return response.result
+
+        let newUser = User(
+            id: gResult.userId,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            metadata: []
+        )
+        let _ = userRepsitory.saveUser(user: newUser)
+        return newUser
     }
+
 }
 
 struct CreateUserRequest: Codable {

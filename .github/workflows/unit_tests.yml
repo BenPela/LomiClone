@@ -17,6 +17,15 @@ jobs:
       - name: Install xcpretty
         run: gem install xcpretty --install-dir ./gems xcpretty
 
+      - name: Install cocoapods
+        run: gem install cocoapods --install-dir ./gems cocoapods
+
+      - name: Install Pods
+        run: |
+          export GEM_HOME=gems
+          export GEM_PATH=gems
+          gems/bin/pod install --project-directory=Lomi
+
       - name: Show Xcode version
         run: xcodebuild -version
 

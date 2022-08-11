@@ -9,36 +9,13 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
-protocol AuthProvider {
-    func signUp(email: String, password: String) async -> NetworkResponse<SignupResponse>
-    func login(email: String, password: String) async -> NetworkResponse<LoginResponse>
-}
-
-struct SignupResponse {
-
-}
-
-struct LoginResponse {
-
-}
-
 class CognitoAuthProvider: AuthProvider {
 
     init() {
         do {
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             // TODO: staging and release config files are copies of develop
-            var amplifyFileName = "amplifyconfiguration-develop" // DEVELOP by default
-            #if STAGING
-                amplifyFileName = "amplifyconfiguration-staging"
-            #elseif RELEASE
-                amplifyFileName = "amplifyconfiguration-release"
-            #endif
-            guard let configFile = Bundle.main.url(forResource: amplifyFileName, withExtension: ".json") else {
-                SystemLogger.log.error(tag: .auth, messages: "No amplifyconfiguration.json file")
-                return
-            }
-            SystemLogger.log.info(tag: .auth, messages: "Using amplify configuration: \(amplifyFileName)")
+            guard let configFile = AppConfig.amplifyConfigURL else { return }
             // Added in https://github.com/aws-amplify/amplify-ios/pull/707
             let amplifyConfig = try AmplifyConfiguration(configurationFile: configFile)
             try Amplify.configure(amplifyConfig)
@@ -54,6 +31,8 @@ class CognitoAuthProvider: AuthProvider {
         return await withCheckedContinuation({ continuation in
             Amplify.Auth.signUp(username: email, password: password, listener: { response in
                 print("signup response", response)
+                
+                // FIXME: Create `User`, `Auth` in SingupResponse
                 continuation.resume(returning: NetworkResponse(
                     result: SignupResponse(),
                     error: nil

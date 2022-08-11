@@ -12,3 +12,4 @@ PRODUCT_BUNDLE_IDENTIFIER = earth.lomi.app.1
 APP_NAME = Lomi
 APP_ICON = AppIcon
 BASE_API_URL = api.lomi-app.net
+AMPLIFY_CONFIG_NAME = amplifyconfiguration-release
