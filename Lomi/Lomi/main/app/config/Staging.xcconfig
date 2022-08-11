@@ -12,3 +12,4 @@ PRODUCT_BUNDLE_IDENTIFIER = earth.lomi.app.1.staging
 APP_NAME = Lomi-Staging
 APP_ICON = AppIcon-Staging
 BASE_API_URL = api-staging.lomi-app.net
+AMPLIFY_CONFIG_NAME = amplifyconfiguration-staging

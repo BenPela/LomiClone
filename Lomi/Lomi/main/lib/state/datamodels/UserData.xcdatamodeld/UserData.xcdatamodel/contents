@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="StoredAuth" representedClassName="StoredAuth" syncable="YES">
+        <attribute name="accessToken" optional="YES" attributeType="String"/>
+        <attribute name="idToken" optional="YES" attributeType="String"/>
+        <attribute name="refreshToken" optional="YES" attributeType="String"/>
+        <relationship name="authUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredUser" inverseName="userAuth" inverseEntity="StoredUser"/>
+    </entity>
+    <entity name="StoredUser" representedClassName="StoredUser" syncable="YES">
+        <attribute name="email" attributeType="String"/>
+        <attribute name="firstName" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="lastName" attributeType="String"/>
+        <attribute name="lastUpdate" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="userAuth" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredAuth" inverseName="authUser" inverseEntity="StoredAuth"/>
+    </entity>
+    <elements>
+        <element name="StoredAuth" positionX="104.40234375" positionY="-17.92578125" width="128" height="103"/>
+        <element name="StoredUser" positionX="-63" positionY="-18" width="128" height="133"/>
+    </elements>
+</model>

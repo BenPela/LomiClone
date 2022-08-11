@@ -19,17 +19,15 @@ Food waste is gross. We can do better. Lomi takes care of your food waste so you
 
 ### Installation
 
-#### 1. Clone this project, or simply unzip the project file.
+#### 1. Clone the project.
 
 ```
 git clone git@github.com:pelacase/lomi-mobile-app-ios.git
 ```
 
-#### 2. Run `Lomi.xcworkspace`
+#### 2. Install pods `pod install`
 
-
-#### Note
-🚫 Do not run `pod install` or `pod update`. The [CocoaPods](https://cocoapods.org)' external libraries are already included in the repository.
+#### 3. Run `Lomi.xcworkspace`
 
 
 

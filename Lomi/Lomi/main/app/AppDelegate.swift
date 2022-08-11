@@ -17,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // FirebaseApp.configure() should be called **only once before any Firebase setup**.
         FirebaseApp.configure()
         
+        // This is example of how to detect "launched by push notification" + "get its details"
+        // if let userInfo =  launchOptions?[.remoteNotification] as? [AnyHashable: Any] { print(userInfo) }
+        setupPushNotification(application: application)
+        
         let serviceLocator = ServiceLocator()
 
         // FIXME: refactor to separate "AppEnvironment" from "StateCore"
@@ -26,9 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             serviceLocator: serviceLocator
         )
 
+        let userContainer = CoreDataContainer(dataModel: "UserData")
+        let userRepository = UserRepository(stateContainer: userContainer)
         let authProvider = CognitoAuthProvider()
         let networkService = NetworkService(appEnv: appEnv)
-        let userService = UserService(networkService: networkService)
+        let userService = UserService(networkService: networkService, userRepository: userRepository)
         let registerLomiService = RegisterLomiService(networkService: networkService)
         let tipsService = TipsService(networkService: networkService)
 
@@ -36,60 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         serviceLocator.registerService(userService)
         serviceLocator.registerService(registerLomiService)
         serviceLocator.registerService(tipsService)
-        
-        let rootViewController = RootNavigationController(appEnv: appEnv)
-        
-        setUpNavigationBar()
-        setUpTabBar()
+
+        let rootViewController = RootNavigationController()
 
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
         
         return true
     }
-
-}
-
-
-extension AppDelegate {
-    func setUpNavigationBar() {
-        let navBarAppearance = UINavigationBarAppearance()
-        
-        navBarAppearance.backgroundColor = UIColor(.inputFieldsOffWhite)
-        /*
-         This will hide the navigation bar title, but internally let it exist. This makes the back button label dynamically related to the current navigation title.
-         The below solution doesn't work nicely because it will also make the back button label "".
-         ```
-         .navigationBarHidden(true)
-         .navigationBarTitle("")
-         ```
-         */
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.clear, .font: UIFont.systemFont(ofSize: 0)]
-        // This will customize all back button style in navigation bar. This has no effect on BackIndicatorImage "<"
-        navBarAppearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(.primarySoftBlack), .font: UIFont.systemFont(ofSize: 16, weight: .medium)]
-        // This will change tintColor of all navigation bar's "title", "back bottom", and "BackIndicatorImage". However, `UINavigationBarAppearance()` config has high priority.
-        UINavigationBar.appearance().tintColor = UIColor(.primarySoftBlack)
-        
-        // Applying appearance to all navigation status.
-        UINavigationBar.appearance().standardAppearance = navBarAppearance
-        UINavigationBar.appearance().compactAppearance = navBarAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
-    }
-    
-    func setUpTabBar() {
-        // Set up tab bar
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.backgroundColor = UIColor(.primaryWhite)
-        tabBarAppearance.stackedItemPositioning = .centered
-        UITabBar.appearance().standardAppearance = tabBarAppearance
-        // This is to always show same tab appearance (eg, border)
-        if #available(iOS 15.0, *) {
-            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        } else {
-            UITabBar.appearance().backgroundImage = UIImage()
-            UITabBar.appearance().isTranslucent = true
-            UITabBar.appearance().backgroundColor =  .white
-        }
-    }
-
 }
